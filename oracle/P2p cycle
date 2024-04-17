@@ -1,0 +1,763 @@
+IN this two types of cycles used 
+
+
+  1)  p2P cycle (procurement to payment).
+  ----------------------------------------
+  
+  * PR(purchase requsition)
+      =================
+	  1) item
+	  2) quantity
+	  3) price
+	
+	  navigator --> procurement --> purchase requisition --> click on more tasks --> select enter requsition line.
+	
+      REQUISITION_NUMBER :'203636',            914042
+	---------------------------
+	REQUISITION_HEADER_ID = 300000048657163
+	REQUISITION_LINE_ID   = 300000048657164
+	DISTRIBUTION_ID       = 300000048657556
+	
+	navigator --> tools --> reports and analytics --> click on browse cateloge --> create --> data model
+	
+	porh. por requsition_header_all
+	porl.por_requsition_lines_all
+	pord.por_req_distributions_all
+	--porh.creation_date between : p_from _date and 
+	
+	
+		
+	
+	
+	
+	
+	
+	ROles:-
+	-----
+	
+	* Advanced procurement requester.
+	* procurement manager.
+	
+     query:-
+	 -----
+	  
+     select  porh.REQUISITION_HEADER_ID,
+	         porh.REQUISITION_NUMBER,
+			 porh.CREATION_DATE,
+			 porh.CREATED_BY,
+			 porh.DOCUMENT_STATUS, 
+			 porl.REQUISITION_LINE_ID,
+			 porl.CATEGORY_ID,
+			 porl.UNIT_PRICE,
+			 porl.SUGGESTED_BUYER_ID,
+			 porl.vPO_HEADER_ID,
+			 porl.SOURCE_DOCUMENT_TYPE,
+			 porl.CURRENCY_CODE,
+			 porl.CURRENCY_UNIT_PRICE,
+			 porl.VENDOR_ID,
+			 porl.VENDOR_CONTACT_ID,
+			 porl.PURCHASE_BASIS,
+			 porl.LINE_STATUS,
+			 porl.LAST_SUBMITTED_DATE, 
+			 pord.CODE_COMBINATION_ID,
+			 pord.PRIMARY_LEDGER_ID,
+			 pord.DISTRIBUTION_CURRENCY_AMOUNT			 
+		from por_requisition_headers_all porh,
+	        por_requisition_lines_all porl,
+			por_req_distribution_all pord
+	   where 1=1 
+	   and REQUISITION_HEADER_ID = 300000048657163
+	   and porh.requisition_header_id = porl.requisition_header_id
+	   and porl.requisition_line_id = pord.requisition_line_id
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+        	BU names 
+		   ==========
+			hou.names
+			
+
+		   item number for
+		==================
+		egp_system_items_b   (porl. table)
+
+		egp_system_item_tl    (names)
+		egp_categories_tl
+
+
+			item names
+		================
+		porl_item_discription.
+
+
+
+select porh.REQUISITION_HEADER_ID,
+		 porh.PREPARER_ID,
+		 porh.REQUISITION_NUMBER,
+		 porh.REQ_BU_ID,
+		 porl.PRC_BU_ID,
+		 porl.CREATED_BY,
+		 porl.REQUISITION_LINE_ID,
+		 porl.SOURCE_DOCUMENT_TYPE,
+		pord.CREATION_DATE
+		pord.CODE_COMBINATION_ID,
+		pord.DISTRIBUTION_NUMBER
+from por_requisition_headers_all   porh,
+	por_requisition_lines_all  porl,
+	por_req_distribution_all   pord  
+where 1=1
+and 	REQUISITION_LINE_ID   = 300000048657164
+and porh.requisition_header_id = porl.requisition_header_id
+and porl.requisition_line_id = pord.requisition_line_id
+	  
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   REQUISITION_HEADER_ID = 300000048657372
+	   REQ_BU_ID = 300000046987012
+	   REQUISITION_LINE_ID = 300000048657373
+REQUISITION_NUMBER = 203638
+
+	   
+	   new query
+	   ============
+	   
+	   
+	   
+	   select porh.PREPARER_ID,
+               porh.CREATED_BY,
+	           porh.CREATION_DATE,
+               porl.REQUISITION_LINE_ID,
+	           porl.UNIT_PRICE  PRICE,
+               porl.QUANTITY,
+			   pord.PRIMARY_LEDGER_ID,
+	           pord.DISTRIBUTION_AMOUNT
+	  from por_requisition_headers_all porh,
+	       por_requisition_lines_all  porl,
+           por_req_distributions_all pord
+	   where 1=1
+	   and REQUISITION_NUMBER = 203644
+	   and porh.porrequisition_header_id = porl.requisition_header_id
+       and porl.requisition_line_id = pord.requisition_line_id 
+	   
+	   
+	   
+	   
+	   
+	   
+	  
+	   
+	   
+	   
+	   por_requisition_headers_all,.........................
+	   
+	  PREPARER_ID,
+	  CREATED_BY,
+	  CREATION_DATE,
+	   
+	   
+	   
+	    por_requisition_lines_all,...................
+	   
+	   REQUISITION_LINE_ID,
+	   UNIT_PRICE,
+	   QUANTITY
+
+     
+	 por_req_distributions_all...........................
+	 
+	 PRIMARY_LEDGER_ID,
+	 DISTRIBUTION_AMOUNT,
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 select * from por_requisition_headers_all,
+	 por_requisition_lines_all,
+	 por_req_distributions_all
+	 where 1=1
+	 and porh.requisition_header_id = porl.requisition_header_id
+	 and porl.requisition_line_id = pord.requisition_line_id
+	 
+	 
+ ==================================================================================================================================================================
+	 
+	 Purchase requisition --> Purchase Order --> Create Receipts --> Create Invoice --> Make a Payment --> SLA --> General Ledger
+
+101 --100                  pur123  100        rec12345  50         inv546   100      pay435  100      dr  100 0    
+																									  CR   0  100
+																									  
+																									  
+Create Accounting -- AUG-2022  -- Open/close  --
+
+Pre Tables
+===========
+Item
+======
+
+Egp_system_items_b -- Item details, Name, number
+egp_categories_tl  -- Category_name details
+INV_UNITS_OF_MEASURE_B -- UOM Details
+
+Vendors
+========
+poz_suppliers_v           -- Vendor Details
+poz_supplier_sites_all_m  -- Vendor Site Details
+poz_supplier_address_v    -- Vendor Address
+
+USER
+======
+per_users
+per_person_names_f where NAME_TYPE = 'GLOBAL'
+
+Customers
+==========
+hz_parties
+
+GL Code Combinations
+===================
+gl_code_combinations
+
+Ledger Names
+=============
+GL_ledgers
+
+PO Locations
+=============
+hr_locations_all -- LOCATION_ID,
+
+Categories
+==========
+egp_categories_tl -- CATEGORY_ID, DESCRIPTION
+
+ORGANIZATION
+=============
+INV_ORG_PARAMETERS -- ORGANIZATION_ID, ORGANIZATION_CODE
+
+SUB INVENTORY 
+==============
+INV_SECONDARY_INVENTORIES -- SECONDARY_INVENTORY_NAME, DESCRIPTION
+
+External Bank Accounts
+=======================
+IBY_EXT_BANK_ACCOUNTS
+
+XLA Application_id 
+==================
+fnd_application_tl
+
+Purchase Requisition
+======================
+
+SELECT 
+       hou.name bu_name,
+	   porh.requisition_number,
+	   TO_CHAR(porh.CREATION_DATE,'DD-MM-YYYY') requisition_date,
+	   (select item_number from egp_system_items_b where inventory_item_id = porl.item_id and organization_id = porl.DESTINATION_ORGANIZATION_ID) item_number,
+	   porl.ITEM_DESCRIPTION Item_name,
+	   (SELECT ITEM_NUMBER
+	   FROM EGP_SYSTEM_ITEMS_B ESI
+	   WHERE ESI.INVENTORY_ITEM_ID = porl.ITEM_DESCRIPTION) 
+	   porl.QUANTITY,
+	   porl.UNIT_PRICE Price,
+	   (porl.QUANTITY * porl.UNIT_PRICE) total
+		
+ FROM  Por_requisition_headers_all porh,
+       por_requisition_lines_all porl,
+	   por_req_distributions_all pord,
+	   hr_operating_units hou
+ WHERE 1=1
+ --AND porh.requisition_number = 'PR20006321'
+ AND porh.requisition_header_id = porl.requisition_header_id
+ AND porl.requisition_line_id = pord.requisition_line_id
+ AND hou.organization_id = porh.prc_bu_id
+ AND porh.CREATION_DATE BETWEEN :P_FROM_DATE and :P_TO_DATE
+ 
+ 
+Purchase Orders
+================
+
+Front End/UI Navigation: Navigator/Home Page --> Go to Procurement --> Purchase Orders --> Go to Task --> Create Order
+
+
+Vendor_num=102527
+PO Number : PU10040113
+
+
+HEADER
+Lines
+Distributions
+Line Locations
+
+Requi -- Chart Of Accounts --90%
+210.000.1420.0000.000.000.0000.0000	 -- Code_combination_id
+
+Company.Location.Account.Optional
+
+Tables 
+=======
+
+po_headers_all
+po_lines_all
+po_line_locations_all
+po_distributions_all
+
+PO_HEADER_ID = 300000447113153
+DOCUMENT_STATUS = INCOMPLETE
+PRC_BU_ID,
+AGENT_ID,
+TYPE_LOOKUP_CODE, --BLANKET,STANDARD, Contract agreement, Planed Purchase Order
+CREATION_DATE,
+VENDOR_ID,
+VENDOR_SITE_ID,
+SHIP_TO_LOCATION_ID,
+BILL_TO_LOCATION_ID,
+TERMS_ID,
+CURRENCY_CODE,
+COMMENTS
+
+
+select * from po_lines_all
+where PO_HEADER_ID = 300000447113153
+
+PO_LINE_ID = 300000447113155
+LINE_NUM,
+ITEM_ID,
+ITEM_DESCRIPTION,
+CATEGORY_ID,
+UOM_CODE,
+QUANTITY,
+UNIT_PRICE,
+
+
+select * from po_line_locations_all
+where PO_HEADER_ID = 300000447113153
+and PO_LINE_ID = 300000447113155
+
+LINE_LOCATION_ID = 300000447113156
+DESTINATION_TYPE_CODE,
+QUANTITY,
+
+QUANTITY_RECEIVED,
+QUANTITY_ACCEPTED,
+QUANTITY_REJECTED,
+QUANTITY_BILLED,
+QUANTITY_CANCELLED
+
+
+select * from po_distributions_all
+where PO_HEADER_ID = 300000447113153
+and PO_LINE_ID = 300000447113155
+and LINE_LOCATION_ID =
+
+
+PO Query
+========
+
+SELECT  poh.segment1 po_number,
+        poh.DOCUMENT_STATUS,
+		--poh.PRC_BU_ID,
+		hou.name bu_name,
+		
+		--poh.agent_id,
+		(select ppn.full_name from per_person_names_f ppn
+           where ppn.person_id = poh.agent_id
+		   AND ppn.NAME_TYPE = 'GLOBAL') buyer_name,
+		poh.TYPE_LOOKUP_CODE,
+		poh.CREATION_DATE,
+		--poh.VENDOR_ID,
+		(select pos.vendor_name from poz_suppliers_v pos where pos.vendor_id =poh.vendor_id) vendor_name,
+		--poh.VENDOR_SITE_ID,
+		(select poss.vendor_site_code from poz_supplier_sites_all_m poss where poss.vendor_site_id =poh.VENDOR_SITE_ID ) vendor_site_name,
+		--poh.SHIP_TO_LOCATION_ID,
+		(select hla.description from hr_locations_all hla
+            where hla.location_id = poh.SHIP_TO_LOCATION_ID) ship_to_location,
+		--poh.BILL_TO_LOCATION_ID,
+		(select hla.description from hr_locations_all hla
+            where hla.location_id = poh.BILL_TO_LOCATION_ID) bill_to_location,
+		--poh.TERMS_ID,
+		(select att.name from ap_terms_tl att
+     where att.term_id = poh.terms_id) po_term_name,
+		poh.CURRENCY_CODE,
+		poh.COMMENTS,
+		--PO_LINES_ALL
+		pol.LINE_NUM,
+		pol.ITEM_DESCRIPTION,
+		--pol.CATEGORY_ID,
+		(select ect.DESCRIPTION from egp_categories_tl ect
+         where ect.category_id = pol.CATEGORY_ID) category_name,
+		pol.UOM_CODE,
+		pol.QUANTITY,
+		pol.UNIT_PRICE,
+		--PO_DiSTR
+		poll.QUANTITY_RECEIVED,
+		poll.QUANTITY_ACCEPTED,
+		poll.QUANTITY_REJECTED,
+		poll.QUANTITY_BILLED,
+		poll.QUANTITY_CANCELLED,
+		--pod.code_combination_id
+		(select SEGMENT1||'.'||SEGMENT2||'.'||SEGMENT3||'.'||SEGMENT4||'.'||SEGMENT5 from gl_code_combinations
+  where code_combination_id =pod.code_combination_id) code_combinations
+		--(select )
+   FROM po_headers_all poh,
+        po_lines_all pol,
+		po_line_locations_all poll,
+		po_distributions_all pod,
+		hr_operating_units hou
+   
+  WHERE 1=1
+  AND poh.segment1 = 'PU10040113'
+  AND poh.po_header_id = pol.po_header_id
+  AND poh.po_header_id = poll.po_header_id
+  AND pol.po_line_id = poll.po_line_id
+  AND poh.po_header_id = pod.po_header_id 
+  AND pol.po_line_id = pod.po_line_id
+  AND poll.line_location_id = pod.line_location_id
+  AND poh.PRC_BU_ID = hou.organization_id
+  
+  
+  
+Receipts
+=========
+rcv_shipment_headers -- SHIPMENT_HEADER_ID
+rcv_shipment_lines -- SHIPMENT_HEADER_ID,SHIPMENT_LINE_ID = 2549
+rcv_transactions
+
+select * from rcv_shipment_headers
+where receipt_num ='1287'
+and SHIPMENT_HEADER_ID = 2254
+
+RECEIPT_NUM,
+CREATION_DATE,
+SHIPPED_DATE,
+EXPECTED_RECEIPT_DATE,
+GL_DATE
+
+rcv_shipment_lines
+==================
+
+SHIP_TO_LOCATION_ID,
+EMPLOYEE_ID,
+LINE_NUM,
+CATEGORY_ID,
+QUANTITY_SHIPPED,
+QUANTITY_RECEIVED,
+QUANTITY_DELIVERED,
+QUANTITY_RETURNED,
+QUANTITY_ACCEPTED,
+QUANTITY_REJECTED,
+UOM_CODE,
+ITEM_DESCRIPTION,
+SHIPMENT_LINE_STATUS_CODE,
+SOURCE_DOCUMENT_CODE,
+DESTINATION_TYPE_CODE,
+TO_SUBINVENTORY,
+TO_ORGANIZATION_ID
+
+rcv_transactions
+================
+
+select * from rcv_transactions
+where SHIPMENT_HEADER_ID = 2254
+AND SHIPMENT_LINE_ID = 2549
+
+
+TRANSACTION_TYPE,
+QUANTITY,
+INTERFACE_SOURCE_CODE,
+PO_UNIT_PRICE,
+
+
+
+select  rsh.RECEIPT_NUM,
+		rsh.CREATION_DATE,
+		rsh.SHIPPED_DATE,
+		rsh.EXPECTED_RECEIPT_DATE,
+		rsh.GL_DATE,
+		---Lines
+		rsl.SHIP_TO_LOCATION_ID,
+		rsl.EMPLOYEE_ID,
+		rsl.LINE_NUM,
+		rsl.CATEGORY_ID,
+		rsl.QUANTITY_SHIPPED,
+		rsl.QUANTITY_RECEIVED,
+		rsl.QUANTITY_DELIVERED,
+		rsl.QUANTITY_RETURNED,
+		rsl.QUANTITY_ACCEPTED,
+		rsl.QUANTITY_REJECTED,
+		rsl.UOM_CODE,
+		rsl.ITEM_DESCRIPTION,
+		rsl.SHIPMENT_LINE_STATUS_CODE,
+		rsl.SOURCE_DOCUMENT_CODE,
+		rsl.DESTINATION_TYPE_CODE,
+		rsl.TO_SUBINVENTORY,
+		rsl.TO_ORGANIZATION_ID,
+		--Transactions
+		rt.TRANSACTION_TYPE,
+		rt.QUANTITY,
+		rt.INTERFACE_SOURCE_CODE,
+		rt.PO_UNIT_PRICE
+from rcv_shipment_headers rsh,
+     rcv_shipment_lines rsl,
+	 rcv_transactions rt
+ where 1=1
+ --AND rsh.SHIPMENT_HEADER_ID = 2254
+ AND rsh.SHIPMENT_HEADER_ID = rsl.SHIPMENT_HEADER_ID
+ AND rsl.SHIPMENT_LINE_ID = rt.SHIPMENT_LINE_ID
+ AND rsh.SHIPMENT_HEADER_ID = rt.SHIPMENT_HEADER_ID
+ 
+ 
+Invoice
+========
+
+Accounts Payable Manager
+Accounts Payable Specialist
+Accounts Payable Supervisor
+Accounts Payable Payment Supervisor
+
+ABF FREIGHT
+Tables 
+=======
+
+AP_INVOICES_ALL
+AP_INVOICE_LINES_ALL
+AP_INVOICE_DISTRIBUTIONS_ALL  --LINE_NUMBER
+
+
+select INVOICE_ID,
+       VENDOR_ID,
+	   VENDOR_SITE_ID,
+	   INVOICE_NUM,
+	   INVOICE_CURRENCY_CODE,
+	   INVOICE_AMOUNT,
+	   AMOUNT_PAID,
+	   INVOICE_DATE,
+	   INVOICE_TYPE_LOOKUP_CODE,
+	   DESCRIPTION,
+	   TERMS_ID,
+	   TERMS_DATE	   
+from ap_invoices_all
+
+
+SELECT LINE_NUMBER,
+       LINE_TYPE_LOOKUP_CODE,
+	   DESCRIPTION,
+	   ACCOUNTING_DATE,
+	   PERIOD_NAME,
+	   AMOUNT,
+	   UNIT_PRICE	   
+FROM AP_INVOICE_LINES_ALL
+WHERE INVOICE_ID = 24 --LINE_NUMBER
+
+
+
+SELECT DIST_CODE_COMBINATION_ID,
+       DISTRIBUTION_LINE_NUMBER,
+       ACCOUNTING_DATE	   
+FROM AP_INVOICE_DISTRIBUTIONS_ALL
+WHERE INVOICE_ID = 24 
+
+
+SELECT AIA.INVOICE_ID,
+       AIA.VENDOR_ID,
+	   AIA.VENDOR_SITE_ID,
+	   AIA.INVOICE_NUM,
+	   AIA.INVOICE_CURRENCY_CODE,
+	   AIA.INVOICE_AMOUNT,
+	   AIA.AMOUNT_PAID,
+	   AIA.INVOICE_DATE,
+	   AIA.INVOICE_TYPE_LOOKUP_CODE,
+	   AIA.DESCRIPTION,
+	   AIA.TERMS_ID,
+	   AIA.TERMS_DATE,
+       AIL.LINE_NUMBER,
+       AIL.LINE_TYPE_LOOKUP_CODE,
+	   --AIL.DESCRIPTION,
+	   --AIL.ACCOUNTING_DATE,
+	   AIL.PERIOD_NAME,
+	   AIL.AMOUNT,
+	   AIL.UNIT_PRICE,
+       AID.DIST_CODE_COMBINATION_ID,
+       AID.DISTRIBUTION_LINE_NUMBER,
+       AID.ACCOUNTING_DATE,
+       (GCC.SEGMENT1||'.'||GCC.SEGMENT2||'.'||GCC.SEGMENT3||'.'||GCC.SEGMENT4||'.'||GCC.SEGMENT5||'.'||GCC.SEGMENT6)	COMBINATION ,
+       GL_FLEXFIELDS_PKG.GET_CONCAT_DESCRIPTION (GCC.CHART_OF_ACCOUNTS_ID,
+                                          GCC.CODE_COMBINATION_ID) 	COMBINATION_NAME   
+FROM AP_INVOICES_ALL AIA,
+	AP_INVOICE_LINES_ALL AIL,
+	AP_INVOICE_DISTRIBUTIONS_ALL AID,
+	GL_CODE_COMBINATIONS GCC
+WHERE 1=1
+AND AIA.INVOICE_ID = AIL.INVOICE_ID 
+AND AIA.INVOICE_ID = AID.INVOICE_ID
+AND AIL.LINE_NUMBER = AID.INVOICE_LINE_NUMBER
+AND AID.DIST_CODE_COMBINATION_ID = GCC.CODE_COMBINATION_ID
+AND AIA.INVOICE_ID = 24
+
+Invoice Payments
+================
+
+ap_invoice_payments_all  -- Invoice_id , amount    100   
+ap_checks_all
+ap_payment_schedules_all  -- 100    50   50(Remaining amount)
+
+SELECT aia.PAYMENT_NUM,
+       aia.ACCOUNTING_DATE,
+       aia.AMOUNT,
+	   aia.INVOICE_ID,
+	   aia.CHECK_ID,
+	   aia.PERIOD_NAME,
+	   aia.POSTED_FLAG,
+	   aia.ORG_ID,
+	   aia.EXTERNAL_BANK_ACCOUNT_ID,
+	   aia.REMIT_TO_SUPPLIER_NAME,
+	   aia.REMIT_TO_ADDRESS_NAME,
+	   
+	   aca.BANK_ACCOUNT_NAME,
+	   aca.CHECK_DATE,
+	   aca.CHECK_NUMBER,
+	   aca.ADDRESS_LINE1,
+	   aca.CHECKRUN_NAME,
+	   aca.VENDOR_NAME,
+	   aca.BANK_ACCOUNT_NUM,
+	   aca.BANK_ACCOUNT_TYPE,
+	   aca.VENDOR_ID,
+	   aca.VENDOR_SITE_ID,
+	   aps.INVOICE_ID,
+	   aps.GROSS_AMOUNT,
+	   aps.PAYMENT_PRIORITY
+	   from
+	   ap_invoices_all aia,
+	   ap_checks_all aca,
+	   ap_payment_schedules_all aps
+	   
+	   where 1=1
+	   and aip.check_id = aca.check_id
+	   
+	   
+
+SLA   -- Bank tables 
+====
+
+xla_transaction_entities
+xla_ae_headers
+xla_ae_lines
+xla_distribution_links -- Ap-invoice_distributions_all
+xla_events
+	   
+ROLES in GL
+============
+General Accountant
+General Accounting Manager	
+
+
+select xte.ENTITY_CODE,
+       xte.CREATION_DATE,
+	   xte.SOURCE_ID_INT_1,
+	   xte.TRANSACTION_NUMBER,
+	   xah.APPLICATION_ID,
+	   xah.EVENT_TYPE_CODE,
+	   xah.ACCOUNTING_DATE,
+	   xah.JE_CATEGORY_NAME,
+	   xal.CODE_COMBINATION_ID,
+	   xal.GL_TRANSFER_MODE_CODE,
+	   xal.GL_SL_LINK_ID,
+	   NVL(xal.ACCOUNTED_DR,0) dr,
+	   NVL(xal.ACCOUNTED_CR,0) cr,
+	   xal.DESCRIPTION
+from xla_transaction_entities xte,
+     xla_ae_headers xah,
+	 xla_ae_lines xal
+ where 1=1
+ and xte.entity_id = xah.entity_id 
+ and xah.ae_header_id = xal.ae_header_id
+and xte.ENTITY_ID = 582320 
+ 
+
+
+
+GL TABLES 
+==========
+
+gl_import_references
+gl_je_headers
+gl_je_lines
+gl_je_batches
+gl_balances   Open  DR  CR  CLosing   - Period/year wise
+
+AP-200
+AR-222
+Cost management - 707
+FA - 140
+CM - 260
+gl - 101
+
+select gir.JE_LINE_NUM,
+       gir.GL_SL_LINK_ID,
+	   gir.GL_SL_LINK_TABLE,
+	   gjh.JE_SOURCE,
+	   gjh.JE_CATEGORY,
+	   gjh.PERIOD_NAME,
+	   gjh.NAME,
+	   gjh.STATUS,
+	   gjl.ACCOUNTED_DR,
+	   gjl.ACCOUNTED_CR
+	
+    from gl_import_references gir,
+	     gl_je_headers gjh,
+         gl_je_lines gjl
+	where gir.JE_HEADER_ID = gjh.JE_HEADER_ID
+	and gjh.JE_HEADER_ID = gjl.JE_HEADER_ID
+	and gir.JE_LINE_NUM = gjl.JE_LINE_NUM
+	and gir.je_header_id = 13005
+
+	
+	trial balance
+	
+	
+	begin dr cr closing
+	10     5  2  =begcr=13
+
+	
+	16 
+
+
+	 
